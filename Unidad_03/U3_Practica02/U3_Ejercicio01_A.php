@@ -16,7 +16,7 @@ function buscarContenido($coches, $localizador){
 
 
 // Creamos el array con contenido y el localizador de lo que queremos buscar
-$coches = array(32,11,45,22,78,-3,9,66,5);
+$coches = [32,11,45,22,78,-3,9,66,5];
 $localizador = 5;
 
 // Llamamos a la funcion que nos permite buscar un contenido del array
