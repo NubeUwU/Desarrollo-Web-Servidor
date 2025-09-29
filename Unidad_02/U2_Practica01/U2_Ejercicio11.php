@@ -12,7 +12,7 @@ $miArray= [
 // Creamos las variables para las sumas y el tamaño maximo del array
 $diagPrincipal = 0;
 $diagSecundaria = 0;
-$maxDiagSecundaria = count($miArray);
+$tamañoArray = count($miArray);
 
 // Calculamos la suma de la diagonal principal
 for ($i = 0; $i < count($miArray); $i++){
@@ -21,10 +21,10 @@ for ($i = 0; $i < count($miArray); $i++){
 
 // Calculamos la suma de la diagonal secundaria
 for ($i = 0; $i < count($miArray); $i++){
-    $diagSecundaria += $miArray[$i][$maxDiagSecundaria - 1 -$i];
+    $diagSecundaria += $miArray[$i][$tamañoArray - 1 -$i];
 }
 
 // Mostramos el resultado por pantalla
-echo "La suma de la diagonal principal es: " . $diagPrincipal . "<br>La suma de la diagonal secundaria es: " . $diagSecundaria;
+echo "La suma de la diagonal principal es: " . $diagPrincipal . "<br>La suma de la diagonal secundaria es: " . $tamañoArray;
 
 ?>
