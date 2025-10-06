@@ -10,7 +10,7 @@ $operacion = $_POST['op'];
 switch ($operacion){
 
     case '+':
-        echo "La suma de " . $_POST['num1'] . " y " . $_POST['num2'] . " es:  " . $suma;
+        echo "La suma de $_POST['num1'] y $_POST['num2'] es: $suma";
         break;
 
     case "-":
