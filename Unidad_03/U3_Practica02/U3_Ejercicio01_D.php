@@ -1,22 +1,14 @@
 <?php
 
-// Creamos e inicializamos el array jugadores
+// Creamos e inicializamos las variables
 $jugadores = array("Crovic", "Antic", "Malic", "Zulic", "Rostrich");
+$alineacion = "";
 
 // Mostramos el resultado
 echo "La alineación del equipo está compuesta por ";
 
-// Iteramos sobre el array para mostrar todos sus valores
-for ($i=0; $i < count($jugadores); $i++){
-    
-    // Cuando llega al maximo muestra un punto
-    if($i == count($jugadores)-1){
-          echo $jugadores[$i] . ".";
-        
-    // Muestra la posicion y una ","
-    }else{
-          echo $jugadores[$i] . ", ";
-    }
-}
+$alineacion = implode (", ", $jugadores); // Unimos los valores en un string
+
+echo $alineacion;
 
 ?>
