@@ -1,24 +1,18 @@
 <?php
 
 // Creamos la matriz
-$matriz = [
-    [1, 14, 8, 3],
-    [6, 19, 7, 2],
-    [3 ,13, 4, 1]
-];
+$alumnos = array(
+    'Basico' => array('Ingles' => 1, 'Frances'=>14 ,'Aleman' => 8, 'Ruso' =>3),
+    'Medio' => array('Ingles' => 6, 'Frances'=> 19,'Aleman' => 7, 'Ruso' =>2),
+    'Avanzado' => array('Ingles' => 3, 'Frances'=>13,'Aleman' => 4, 'Ruso' =>1)
+);
 
-// Creamos dos arrays con los niveles e idiomas
-$niveles = ["Básico", "Medio", "Perfeccion"];
-$idiomas = ["Inglés", "Frances", "Alemán", "Ruso"];
-
-// Iteramos sobre la matriz y mostramos el resultado
-for ($i = 0; $i < count($matriz); $i++){
-    echo "Nivel " . $niveles[$i] . ":<br>";
-
-    for($j = 0; $j < count($matriz[$i]); $j++){
-       echo "Idioma: " . $idiomas[$j] . " → " . $matriz[$i][$j] . " alumnos<br>";
+    foreach ($alumnos as $nivel => $niveles){
+        foreach ($niveles as $idioma => $cantidad){
+            echo "El número de alumnos matriculados en $idioma nivel $nivel son: $cantidad<br>";
+            
+        }
+        echo "<br>";
     }
-echo "<br>";
-}
 
 ?>

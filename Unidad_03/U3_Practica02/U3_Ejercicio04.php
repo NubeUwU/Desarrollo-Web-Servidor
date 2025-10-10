@@ -27,7 +27,7 @@ for ($i = 0; $i < count($matriz); $i++) {
 // Diagonal secundaria
 echo "<br>Diagonal secundaria: ";
 for ($i = 0; $i < count($matriz); $i++) {
-    $j = count($matriz) - $i; // columna de la diagonal secundaria
+    $j = count($matriz) - 1 - $i; // columna de la diagonal secundaria
     echo $matriz[$i][$j] . " ";
 }
 
