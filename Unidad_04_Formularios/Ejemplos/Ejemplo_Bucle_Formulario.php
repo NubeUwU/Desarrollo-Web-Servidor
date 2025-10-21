@@ -1,5 +1,7 @@
 <?php
 
+// ----- RECARGA -----
+
 // Si $elementos no existe hace la asignacion
 if (isset($_POST["elementos"])) $elementos = $_POST["elementos"];
 
@@ -13,6 +15,8 @@ if (isset($_POST['num1'])) {
         echo "El número $i es: $numero<br>";
     }
     
+    
+// ----- CARGA -----
 } else { echo <<<_END
 <html>
 <head>
