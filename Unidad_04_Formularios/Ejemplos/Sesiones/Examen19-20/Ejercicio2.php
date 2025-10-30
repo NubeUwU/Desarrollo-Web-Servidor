@@ -18,7 +18,7 @@ function mostrarCartas($array, $exponentes){
         if ($array[$i] == 0){
             echo "<img src='Img/0.jpg'>";
         } else {
-            echo "<img src='Img/{$exponentes[$i]}.jpg'>";
+           echo "<img src='Img/{$exponentes[$i]}.jpg' alt='carta{$exponentes[$i]}'>";
         }
     }
 }

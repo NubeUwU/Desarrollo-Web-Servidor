@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-$exponentes = [8,4,2,1]; // mismo orden que en el juego
+$exponentes = [8,4,2,1]; // Array de los exponentes
 
-// Comprobar que hay juego iniciado
+// Comprobamos que hay juego iniciado
 if(!isset($_SESSION['array'])){
     echo "Error: no hay juego iniciado.";
     exit;
@@ -11,13 +11,13 @@ if(!isset($_SESSION['array'])){
 
 $array = $_SESSION['array'];
 
-// Calcular el número decimal
+// Calculamos el número decimal
 $acierto = 0;
 for($i=0;$i<4;$i++){
     $acierto += $array[$i] * $exponentes[$i];
 }
 
-// Comprobar el resultado enviado por el formulario
+// Comprobamos el resultado enviado por el formulario
 if(isset($_POST['resultado'])){
     $resultado = $_POST['resultado'];
 
@@ -28,12 +28,10 @@ if(isset($_POST['resultado'])){
     }
 
     // Enlace para volver a jugar
-    echo '<br><a href="Ejercicio2.php?reiniciar=1">Volver a Jugar</a>';
+    echo '<br><a href="Ejercicio2.php">Volver a Jugar</a>';
 
     // Limpiamos la sesión para reiniciar juego
     session_unset();
-
-} else {
-    echo "No se envió ningún resultado.";
 }
+
 ?>
