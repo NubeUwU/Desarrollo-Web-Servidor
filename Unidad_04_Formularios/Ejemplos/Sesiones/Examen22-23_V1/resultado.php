@@ -8,7 +8,7 @@ if(!isset($_SESSION['col1'], $_SESSION['col2'], $_SESSION['col3'], $_SESSION['co
     exit;
 }
 
-// Array de combinación correcta
+// Array con las combinaciones
 $combinacion = [$_SESSION['col1'], $_SESSION['col2'], $_SESSION['col3'], $_SESSION['col4']];
 $jugada = $_SESSION['jugada'];
 
@@ -16,15 +16,15 @@ $jugada = $_SESSION['jugada'];
 echo "<h2>Combinación correcta:</h2>";
 pintar_circulos($combinacion[0], $combinacion[1], $combinacion[2], $combinacion[3]);
 
-// Pintamos la jugada del usuario
-echo "<h2>Tu jugada:</h2>";
-pintar_circulos($jugada[0], $jugada[1], $jugada[2], $jugada[3]);
-
 // Comprobamos acierto
 if($combinacion === $jugada){
     echo "<h1>¡ACERTASTE!</h1>";
 } else {
+    // Pintamos la jugada del usuario
+    echo "<h2>Tu jugada:</h2>";
+    pintar_circulos($jugada[0], $jugada[1], $jugada[2], $jugada[3]);
     echo "<h1>Has fallado.</h1>";
+    
 }
 
 // Limpiamos la jugada para poder volver a jugar

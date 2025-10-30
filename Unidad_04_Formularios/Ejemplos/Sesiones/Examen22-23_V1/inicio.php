@@ -2,6 +2,9 @@
 session_start();
 include 'pintar-circulos.php';
 
+echo "<h1>Bienvenido al Simon</h1>";
+echo "<p>Se han generado 4 colores aleatorios. Recuerda su orden y luego pulsa el botón para jugar.</p>";
+
 // Array de colores posibles
 $colores = ['red', 'blue', 'yellow', 'green'];
 
