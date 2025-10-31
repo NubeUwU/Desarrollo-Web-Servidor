@@ -1,0 +1,35 @@
+<?php
+session_start();
+include 'pintar-circulos.php';
+
+// Array de colores posibles
+$colores = ['red', 'blue', 'yellow', 'green', 'white', 'purple', 'orange', 'pink'];
+shuffle ($colores); // Mezclamos los colores para que sean aleatorios
+
+// Cantidad seleccionada en el formulario
+$cantidad = $_SESSION["cantidad"] = $_POST["cantidad"];
+$nColores = $_SESSION["nColores"] = $_POST["nColores"];
+
+// Creamos un array donde guardaremos los colores generados
+$col = [];
+
+
+echo "<h1>Bienvenido al Simon</h1>";
+echo "<p>Se han generado $cantidad circulos con $nColores posibles colores aleatorios. Recuerda su orden y luego pulsa el botón para jugar.</p>";
+
+
+// Generamos X colores aleatorios y los guardamos en un array y en sesión
+for ($i = 0; $i < $cantidad; $i++) {
+    $col[$i] = $colores[rand(0, $nColores)];
+    $_SESSION["col$i"] = $col[$i];
+}
+
+// Pintamos los círculos con los colores generados
+pintar_circulos($col);
+?>
+
+
+<br><br>
+<form action="jugar.php" method="post">
+    <button type="submit" name="boton">Vamos a jugar</button>
+</form>
