@@ -31,7 +31,7 @@ if(isset($_POST['color'])){
     // Añadimos el color pulsado a la jugada
     $_SESSION['jugada'][] = $_POST['color'];
 
-    // Si ya se han pulsado la cantidad de colores, redirigimos al resultado
+    // Si ya se han pulsado la cantidad de colores, redirigimos a resultado.php
     if(count($_SESSION['jugada']) == $cantidad){
         header("Location: resultado.php");
         exit;
@@ -41,14 +41,14 @@ if(isset($_POST['color'])){
 // Creamos un array para los colores de los círculos
 $circulos_usuario = [];
 
-
 // Rellenamos los círculos según la jugada
 for($i=0; $i< $cantidad; $i++){
     if(isset($_SESSION['jugada'][$i])){
         $circulos_usuario[$i] = $_SESSION['jugada'][$i]; // color elegido
+    } else {
+        $circulos_usuario[$i] = 'black'; // círculo vacío
     }
 }
-
 
 // Pintamos los círculos
 pintar_circulos($circulos_usuario);
