@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dificultad</title>
+
+    <script>
+    function cantidadCirculos(valor) {
+        document.getElementById('valorMostrado').textContent = valor;
+    }
+    </script>
+
+
+</head>
+<body>
+
+<form action="inicio.php" method="post">
+<h1>Dificultad Simon</h1><br>
+<p>Nº de circulos con los que jugar</p>
+<input type="range" min="4" max="8" step="1" />
+
+<br>
+<p>Nº de colores con los que jugar</p>
+<input type="range" name="nColores" min="4" max="8" step="1" value="4"
+        oninput="actualizarValor('valorColores', this.value)">
+<p class="valor" id="valorColores">4</p>
+
+
+<br><br>    
+
+<input type="submit" value="Jugar">
+</form>
+
+</body>
+</html>
