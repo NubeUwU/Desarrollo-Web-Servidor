@@ -41,12 +41,14 @@ if(isset($_POST['color'])){
 // Creamos un array para los colores de los círculos
 $circulos_usuario = [];
 
+
 // Rellenamos los círculos según la jugada
 for($i=0; $i< $cantidad; $i++){
     if(isset($_SESSION['jugada'][$i])){
         $circulos_usuario[$i] = $_SESSION['jugada'][$i]; // color elegido
     }
 }
+
 
 // Pintamos los círculos
 pintar_circulos($circulos_usuario);
