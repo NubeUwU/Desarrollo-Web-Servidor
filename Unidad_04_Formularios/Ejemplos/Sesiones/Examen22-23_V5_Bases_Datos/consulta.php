@@ -18,12 +18,11 @@ $result = $connection->query($query);
 if (!$result) die("Error en la consulta: " . $connection->error);
 
 
-// Mostramos los resultados
-while ($row = $result->fetch_assoc()) {
-    echo 'Nombre: ' . htmlspecialchars($row['Nombre']) . '<br>';
-    echo 'Clave: ' . htmlspecialchars($row['Clave']) . '<br>';
-    echo 'Rol: ' . htmlspecialchars($row['Rol']) . '<br>';
-    echo 'Codigo: ' . htmlspecialchars($row['Codigo']) . '<br><br>';
+// Mandamos al juego
+if($result -> num_rows > 0){
+    header("Location:./Juego/dificultad.html");
+}else{
+    echo "Usuario o contraseña incorrectos";
 }
 
 // Cerrar conexión
