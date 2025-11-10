@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dificultad</title>
 </head>
-<body>
+<body> 
 
 <form action="inicio.php" method="post">
+<?php
+    session_start();
+    $usuario = $_SESSION['usuario'];
+    echo '<h1>Buenos días ' . $usuario . '</h1> ';
+?>
+
+
 <h1>Dificultad Simon</h1><br>
 <p>Nº de colores con los que jugar</p>
 <select name="cantidad">

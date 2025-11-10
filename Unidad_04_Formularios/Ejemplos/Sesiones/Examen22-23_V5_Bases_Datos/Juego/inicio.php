@@ -13,7 +13,7 @@ $cantidad = $_SESSION["cantidad"] = $_POST["cantidad"];
 $col = [];
 
 
-echo "<h1>Bienvenido al Simon</h1>";
+echo "<h1>Bienvenido al Simon ". $_SESSION['usuario'] ."</h1>";
 echo "<p>Se han generado $cantidad colores aleatorios. Recuerda su orden y luego pulsa el botón para jugar.</p>";
 
 

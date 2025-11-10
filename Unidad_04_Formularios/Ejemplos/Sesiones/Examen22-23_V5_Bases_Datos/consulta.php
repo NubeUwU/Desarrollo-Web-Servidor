@@ -20,7 +20,13 @@ if (!$result) die("Error en la consulta: " . $connection->error);
 
 // Mandamos al juego
 if($result -> num_rows > 0){
-    header("Location:./Juego/dificultad.html");
+    session_start();
+    $row = $result->fetch_assoc();
+    $_SESSION['codigoUsu'] = $row['Codigo'];
+    header("Location:./Juego/dificultad.php");
+
+    
+// Si no lo encuentra manda muestra un error.
 }else{
     echo "Usuario o contraseña incorrectos";
 }
