@@ -6,14 +6,18 @@ echo "<h1>Introduzca la combinación</h1>";
 
 
 // Recogemos la cantidad de circulos
-$cantidad = $_SESSION["cantidad"];
+$numCir = $_SESSION["numCir"];
 
 
 // Array de colores posibles para los botones
 $botones = ['red'=>'ROJO',
             'blue'=>'AZUL',
             'yellow'=>'AMARILLO',
-            'green'=>'VERDE'
+            'green'=>'VERDE',
+            'white' =>'BLANCO',
+            'purple'=>'MORADO',
+            'orange'=>'NARANJA',
+            'pink'=>'ROSA'
             ];
 
 
@@ -28,7 +32,7 @@ if(isset($_POST['color'])){
     $_SESSION['jugada'][] = $_POST['color'];
 
     // Si ya se han pulsado la cancitdad de colores, redirigimos a acierto/fallo
-    if(count($_SESSION['jugada']) == $cantidad){
+    if(count($_SESSION['jugada']) == $numCir){
         header("Location: resultado.php");
         exit;
     }
@@ -38,7 +42,7 @@ if(isset($_POST['color'])){
 $circulos_usuario = [];
 
 // Rellenamos los círculos según la jugada
-for($i=0; $i< $cantidad; $i++){
+for($i=0; $i< $numCir; $i++){
     if(isset($_SESSION['jugada'][$i])){
         $circulos_usuario[$i] = $_SESSION['jugada'][$i]; // color elegido
     } else {

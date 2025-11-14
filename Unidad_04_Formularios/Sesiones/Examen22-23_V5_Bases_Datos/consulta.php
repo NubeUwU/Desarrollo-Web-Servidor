@@ -1,38 +1,41 @@
 <?php
-
-// Solicitamos la informacion a login
 require_once 'login.php';
 
-// Guardamos los datos del login
-$usuario = $_POST['usuario'];
+session_start();
+
+// Limpiamos cualquier dato anterior
+session_unset();
+
+
+// Recogemos los datos del formulario
+$usuario = ucfirst(strtolower($_POST["usuario"]));
 $clave = $_POST['clave'];
 
 
-// Creamos la conexión
+// Conexión a la base de datos
 $connection = new mysqli($hn, $un, $pw, $db);
 if ($connection->connect_error) die("Error de conexión: " . $connection->connect_error);
 
+
 // Consulta
-$query = "SELECT * FROM Usuarios WHERE Nombre = '$usuario' AND Clave = '$clave'";
+$query = "SELECT * FROM Usuarios WHERE Nombre LIKE '$usuario' AND Clave LIKE '$clave'";
 $result = $connection->query($query);
 if (!$result) die("Error en la consulta: " . $connection->error);
 
 
-// Mandamos al juego
-if($result -> num_rows > 0){
-    session_start();
+// Si existe el usuario
+if($result->num_rows > 0){
     $row = $result->fetch_assoc();
     $_SESSION['codigoUsu'] = $row['Codigo'];
-    header("Location:./Juego/dificultad.php");
+    $_SESSION['usuario'] = ucfirst($row['Nombre']);
+    header("Location: ./Juego/dificultad.php");
+    exit();
 
-    
-// Si no lo encuentra manda muestra un error.
 }else{
-    echo "Usuario o contraseña incorrectos";
+    echo "Usuario o contraseña incorrectos<br><br>";
+    echo '<a href="index.php>Iniciar Sesión</a>"';
 }
 
-// Cerrar conexión
 $result->close();
 $connection->close();
 ?>
-

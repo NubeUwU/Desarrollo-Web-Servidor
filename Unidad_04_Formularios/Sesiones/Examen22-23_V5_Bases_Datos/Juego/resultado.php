@@ -11,19 +11,20 @@ if ($connection->connect_error) {
 }
 
 // Validamos que existan los datos esenciales del juego
-if (!isset($_SESSION['cantidad'], $_SESSION['jugada'], $_SESSION['usuario'])) {
+if (!isset($_SESSION['numCir'], $_SESSION['jugada'], $_SESSION['usuario'])) {
     echo "Error: datos del juego no encontrados.";
     exit;
 }
 
 // Recogemos los datos de sesión
 $usuario = $_SESSION['usuario'];
-$cantidad = $_SESSION['cantidad'];
+$numCir = $_SESSION['numCir'];
+$numCol = $_SESSION['numCol']
 $jugada = $_SESSION['jugada'];
 
 // Generamos la combinación correcta
 $combinacion = [];
-for ($i = 0; $i < $cantidad; $i++) {
+for ($i = 0; $i < $numCir; $i++) {
     $combinacion[$i] = $_SESSION["col$i"];
 }
 
@@ -48,7 +49,7 @@ if ($result && $row = $result->fetch_assoc()) {
     }
 
     // Insertamos el resultado en la tabla Jugadas
-    $addPlay = "INSERT INTO Jugadas (codigousu, acierto) VALUES ($codigoUsu, $acierto)";
+    $addPlay = "INSERT INTO Jugadas (codigousu, numcir, numcolor, acierto) VALUES ($codigoUsu, $numCir, $numCol $acierto)";
     $connection->query($addPlay);
 }
 

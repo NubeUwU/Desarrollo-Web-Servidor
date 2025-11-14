@@ -18,5 +18,10 @@
 
         <input type="submit" value="Entrar">
     </form>
+
+    <br>
+    
+    <a href ="registro.php">Crear Cuenta</a>
+
 </body>
 </html>

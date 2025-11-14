@@ -16,14 +16,26 @@
 
 
 <h1>Dificultad Simon</h1><br>
-<p>Nº de colores con los que jugar</p>
-<select name="cantidad">
+<p>Nº de circulos con los que jugar</p>
+<select name="numCir">
     <option value="4">4</option>
     <option value="5">5</option>
     <option value="6">6</option>
     <option value="7">7</option>
     <option value="8">8</option>
 </select>
+
+
+<p>Nº de colores con los que jugar</p>
+<select name="numCol">
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+</select>
+
+<br><br>
 
 <input type="submit" value="Jugar">
 </form>

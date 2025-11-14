@@ -6,7 +6,7 @@ if ($connection->connect_error) die("Error de conexión: " . $connection->connec
 
 // Consulta total de aciertos por usuario
 $total = $connection->query("
-    SELECT u.Codigo, u.Nombre, SUM(j.acierto) AS num_aciertos
+    SELECT u.Codigo, u.Nombre, j.numcir, j.numcolor, SUM(j.acierto) AS num_aciertos
     FROM Jugadas j
     JOIN Usuarios u ON j.codigousu = u.Codigo
     GROUP BY u.Codigo
@@ -21,6 +21,8 @@ echo <<<HTML
 <tr>
     <th>Codigo Usuario</th>
     <th>Nombre</th>
+    <th>Num. Circulos</th>
+    <th>Num. Colores</th>
     <th>Número Aciertos</th>
     <th>Grafico</th>
 </tr>
@@ -30,12 +32,16 @@ HTML;
 while ($row = $total->fetch_assoc()) {
     $codigo = $row['Codigo'];
     $nombre = $row['Nombre'];
+    $numCir = $row['numcir'];
+    $numCol = $row['numcolor'];
     $aciertos = $row['num_aciertos'];
     $grafico = '<div style="width:' . $aciertos . '%; height:10px; background-color:blue; margin:2px; border:2px solid black;"></div>';
 
     echo "<tr>
             <td>$codigo</td>
             <td>$nombre</td>
+            <td>$numCir</td>
+            <td>$numCol</td>
             <td>$aciertos</td>
             <td>$grafico</td>
           </tr>";
