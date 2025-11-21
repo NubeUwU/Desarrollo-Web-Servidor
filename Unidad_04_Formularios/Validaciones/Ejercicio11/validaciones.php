@@ -1,18 +1,20 @@
 <?php
+include("conexion.php");
+
 
 //<----- FUNCTIONS ----->
 
-function validarNombre(){
-    $name = $_POST["name"];
+
+// Funcion que valida el nombre
+function validarNombre($name, $nameErr){
 
     if (empty($name)) {
-        $nameErr = "El nombre es obligatorio";
+        $nameErr = " * Name is required";
 
     } else {
-        $name = test_input($_POST["name"]);
         
         if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-            $nameErr = "Únicamente se permiten letras y espacios";
+            $nameErr = " * Only letters and white spaces allowed";
         
         }
     }
@@ -21,35 +23,33 @@ function validarNombre(){
 }
 
 
-
-function validarEmail(){
-    $email = $_POST["email"];
+// Funcion que valida el email
+function validarEmail($email, $emailErr){
     
     if (empty($email)){
-        $emailErr = "Email Requerido";
+        $emailErr = " * Email Required";
     
     }else{
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $emailErr = "Formato de email no valido";
+            $emailErr = " * Invalid email format";
         }
     }
 
-    return $passErr;
+    return $emailErr;
     
 }
 
 
 
-
-function validarPassword(){
-    $password = $_POST["password"];
+// Funcion que valida la contraseña
+function validarPassword($password, $passErr){
     
     if($password == ""){
-        $passErr = "Contraseña Requerida";
+        $passErr = "Password Required";
    
     }else{
         if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
-            $passErr = "Debe contener una Mayuscula, una minuscula, un número y un caracter especial.";
+            $passErr = " * The password must contain a Mayus, a minus, a number and a special char.";
         }
     }
     
@@ -57,20 +57,37 @@ function validarPassword(){
       
 }
 
-function encriptarPassword($password){
-    $encriptedPass = hash
-    
+// Funcion que valida el genero
+function validarGender($gender, $genderErr){
+    if (empty ($gender)){
+        $genderErr = "Gender is required";
+    }
+    return $genderErr;
 }
 
-/*
-function guardarDatos(){
-    $connection = new mysqli($hn, $un, $pw, $db);
-    if ($connection->connect_error) {
-        die("Conexión fallida: " . $connection->connect_error);
+
+
+// Funcion que encripta la contraseña
+function encriptarPassword($password){
+    return password_hash($password, PASSWORD_DEFAULT);
+}
+
+
+// Funcion que guarda los datos en la DB
+function guardarDatos($name, $email, $password, $website, $gender) {
+    global $conn;
+
+    $stmt = $conn->prepare("INSERT INTO usuarios (name, email, password, website, gender) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $name, $email, $password, $website, $gender);
+
+    if($stmt->execute()){
+        echo "<p style='color: green;'>Datos guardados correctamente.</p>";
+    } else {
+        echo "<p style='color: red;'>Error al guardar: " . $stmt->error . "</p>";
     }
 
+    $stmt->close();
 }
-*/
 
 
 
@@ -80,19 +97,29 @@ function guardarDatos(){
 $nameErr = $emailErr = $passErr = $urlErr = $genderErr = "";
 $name = $email = $password = $website = $gender = "";
 
+// Asignamos la información
+$name = $_POST["name"] ?? "";
+$email = $_POST["email"] ?? "";
+$password = $_POST["password"] ?? "";
+$website = $_POST["website"] ?? "";
+$gender = $_POST["gender"] ?? "";
 
-$name = $_POST["name"];
-validarNombre($name);
 
-$email = $_POST["email"];
-validarEmail($email);
+// Validamos la informacion
+$nameErr = validarNombre($name, $nameErr);
+$emailErr = validarEmail($email, $emailErr);
+$passErr = validarPassword($password, $passErr);
+$genderErr = validarGender($gender, $genderErr);
 
-$password = $_POST["password"];
-validarPassword($password);
-
-if($name = $email = $password = $website = $gender = ""){
-    guardarDatos($name,$email,$password,$website,$gender);
+// Si no hay errores, guardamos la informacion
+if ($nameErr === "" && $emailErr === "" && $passErr === "") {
+    
+    // Encriptamos la contraseña para guardarla
+    $password = encriptarPassword($password);
+    
+    guardarDatos($name, $email, $password, $website, $gender);
 }
+
 
 
 ?>

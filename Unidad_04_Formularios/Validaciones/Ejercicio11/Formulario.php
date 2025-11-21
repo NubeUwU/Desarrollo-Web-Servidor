@@ -1,55 +1,98 @@
+<?php 
+include("validaciones.php"); 
+
+// Inicializamos las variables
+$name = $_POST["name"] ?? "";
+$email = $_POST["email"] ?? "";
+$password = $_POST["password"] ?? "";
+$website = $_POST["url"] ?? "";
+$comment = $_POST["comment"] ?? "";
+$gender = $_POST["gender"] ?? "";
+
+$nameErr = $emailErr = $passErr = $urlErr = $genderErr = "";
+
+// Validamos solo si se envió el formulario
+if (isset($_POST["enviar"])) {
+    $nameErr = validarNombre($name, '');
+    $emailErr = validarEmail($email, '');
+    $passErr = validarPassword($password, '');
+    $genderErr = validarGender($gender, '');
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
 </head>
 <body>
-    
-    <h1> PHP Form Validation Example</h1>
-    <form method="post" action="validaciones.php">
-        <label for="name">Name:</label>
-        <input type="text" name="name">
+
+<h1>PHP Form Validation Example</h1>
+
+<form method="post" action="formulario.php">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>">
+    <?php if(isset($_POST["enviar"]) && $nameErr !== ""): ?>
         <span style="color:red;"><?php echo $nameErr; ?></span>
-        <br><br>
+    <?php endif; ?>
+    <br><br>
 
-        <label for="email">E-mail:</label>
-        <input type="text" name="email">
+    <label for="email">E-mail:</label>
+    <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>">
+    <?php if(isset($_POST["enviar"]) && $emailErr !== ""): ?>
         <span style="color:red;"><?php echo $emailErr; ?></span>
-        <br><br>
+    <?php endif; ?>
+    <br><br>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password">
+    <label for="password">Password:</label>
+    <input type="password" name="password">
+    <?php if(isset($_POST["enviar"]) && $passErr !== ""): ?>
         <span style="color:red;"><?php echo $passErr; ?></span>
-        <br><br>
+    <?php endif; ?>
+    <br><br>
 
-        <label for="website">Website:</label>
-        <input type="text" name="url">
-        <span style="color:red;"><?php echo $urlErr; ?></span>
-        <br><br>
+    <label for="website">Website:</label>
+    <input type="text" name="url" value="<?php echo htmlspecialchars($website); ?>">
+    <br><br>
 
-        <label for="comment">Comment:</label>
-        <textarea name="comment"></textarea>
-        <br><br>
-        
-        <label for="gender">Gender:</label>
-        <input type="radio" name="gender" value="male" id="gender_male">
-        <label for="gender_male">Male</label>
+    <label for="comment">Comment:</label>
+    <textarea name="comment"><?php echo htmlspecialchars($comment); ?></textarea>
+    <br><br>
 
-        <input type="radio" name="gender" value="female" id="gender_female">
-        <label for="gender_female">Female</label>
-        
+    <label for="gender">Gender:</label>
+    <input type="radio" name="gender" value="male" <?php if ($gender=="male") echo "checked"; ?>> Male
+    <input type="radio" name="gender" value="female" <?php if ($gender=="female") echo "checked"; ?>> Female
+    <?php if(isset($_POST["enviar"]) && $genderErr !== ""): ?>
         <span style="color:red;"><?php echo $genderErr; ?></span>
-        <br><br>
-        
-        
-        <input type="submit" value="Enviar">
+    <?php endif; ?>
+    <br><br>
 
-        <br><br>
+    <input type="submit" name="enviar" value="Enviar">
+    <br><br>
+
+</form>
 
 
-    </form>
+<?php 
+
+// <----- Mostramos los inputs enviados ----->
+
+if (isset($_POST["enviar"])) {
+    echo "<h2>Your Input:</h2>";
+
+    foreach ($_POST as $clave => $valor) {
+        if ($clave == "enviar") continue; // Se evita mostrar el boton enviar
+        if (trim($valor) === "") continue; // Se evita mostrar los valores vacios
+
+        echo "<p><b>" . ucfirst(htmlspecialchars($clave)) . ":</b> " . htmlspecialchars($valor) . "</p>";
+    }
+}
+?>
 
 </body>
 </html>
