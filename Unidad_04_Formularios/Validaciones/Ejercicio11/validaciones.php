@@ -45,7 +45,7 @@ function validarEmail($email, $emailErr){
 function validarPassword($password, $passErr){
     
     if($password == ""){
-        $passErr = "Password Required";
+        $passErr = " * Password is Required";
    
     }else{
         if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
@@ -60,7 +60,7 @@ function validarPassword($password, $passErr){
 // Funcion que valida el genero
 function validarGender($gender, $genderErr){
     if (empty ($gender)){
-        $genderErr = "Gender is required";
+        $genderErr = " * Gender is required";
     }
     return $genderErr;
 }

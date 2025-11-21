@@ -67,8 +67,7 @@ if (isset($_POST["enviar"])) {
     <label for="gender">Gender:</label>
     <input type="radio" name="gender" value="male" <?php if ($gender=="male") echo "checked"; ?>> Male
     <input type="radio" name="gender" value="female" <?php if ($gender=="female") echo "checked"; ?>> Female
-    <?php if(isset($_POST["enviar"]) && $genderErr !== ""): ?>
-        <span style="color:red;"><?php echo $genderErr; ?></span>
+    <?php if(isset($_POST["enviar"]) && $genderErr !== ""): ?> <span style="color:red;"><?php echo $genderErr; ?></span>
     <?php endif; ?>
     <br><br>
 
