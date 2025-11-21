@@ -22,6 +22,8 @@ if (isset($_POST["enviar"])) {
 
 
 
+<!----- FORM ----->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,22 +39,20 @@ if (isset($_POST["enviar"])) {
 
     <label for="name">Name:</label>
     <input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>">
-    <?php if(isset($_POST["enviar"]) && $nameErr !== ""): ?>
-        <span style="color:red;"><?php echo $nameErr; ?></span>
-    <?php endif; ?>
+    <?php if(isset($_POST["enviar"]) && $nameErr !== ""): ?><span style="color:red;"><?php echo $nameErr; ?></span>
+    <?php endif;?>
+
     <br><br>
 
     <label for="email">E-mail:</label>
     <input type="text" name="email" value="<?php echo htmlspecialchars($email); ?>">
-    <?php if(isset($_POST["enviar"]) && $emailErr !== ""): ?>
-        <span style="color:red;"><?php echo $emailErr; ?></span>
+    <?php if(isset($_POST["enviar"]) && $emailErr !== ""): ?> <span style="color:red;"><?php echo $emailErr; ?></span>
     <?php endif; ?>
     <br><br>
 
     <label for="password">Password:</label>
     <input type="password" name="password">
-    <?php if(isset($_POST["enviar"]) && $passErr !== ""): ?>
-        <span style="color:red;"><?php echo $passErr; ?></span>
+    <?php if(isset($_POST["enviar"]) && $passErr !== ""): ?><span style="color:red;"><?php echo $passErr; ?></span>
     <?php endif; ?>
     <br><br>
 
