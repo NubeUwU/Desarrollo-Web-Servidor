@@ -1,22 +1,50 @@
+<?php
+session_start();
+include "login.php"; 
+
+$mensaje = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $user = $_POST["usuario"];
+    $pass = $_POST["clave"];
+
+    // Usamos la función de login.php
+    if (validarLogin($user, $pass)) {
+
+        $_SESSION["usuario"] = $user;
+
+        header("Location: inicio.php");
+        exit();
+
+    } else {
+        $mensaje = "Usuario o contraseña incorrectos.";
+    }
+}
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
-    <h1> AGENDA DE CONTACTOS </h1>
-    <div style="border: 2px solid black; padding: 2px; display: inline-block;">
-        <form method="post" action="">
-            <label for="name">Nombre:</label>
-            <input type="text" name="name">
 
-            <label for="clave">Clave:</label>
-            <input type="text" name="clave">
+<h2>Iniciar sesión</h2>
+<div style="border: 2px solid black; padding: 5px; display: inline-block">
+<form action="index.php" method="POST">
+    <label>Usuario:</label>
+    <input type="text" name="usuario" required>
 
-            <input type="submit" name="enviar" value="Entrar">
-        </form>
-    </div>
+    <label>Clave:</label>
+    <input type="password" name="clave" required>
+
+    <button type="submit">Entrar</button>
+</form>
+</div>
+<p><?php echo $mensaje; ?></p>
+
 </body>
 </html>

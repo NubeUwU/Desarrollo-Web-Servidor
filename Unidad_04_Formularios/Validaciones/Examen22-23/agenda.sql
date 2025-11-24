@@ -21,6 +21,10 @@ SET time_zone = "+00:00";
 -- Base de datos: `agenda`
 --
 
+CREATE DATABASE IF NOT EXISTS agenda DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE agenda;
+
+
 -- --------------------------------------------------------
 
 --
