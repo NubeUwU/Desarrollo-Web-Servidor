@@ -16,11 +16,15 @@ function conectarBD() {
 }
 
 
-function validarLogin($user, $pass) {
+function validarLogin($user, $pass, &$nombre) {
+    // Iniciamos la existencia del usuario en false
+    $existe = false;
+
+    // Conectamos a la base de datos
     $conn = conectarBD();
 
     // Consulta preparada
-    $sql = "SELECT * FROM jugador WHERE Nombre = ? AND Clave = ?";
+    $sql = "SELECT * FROM jugador WHERE Login = ? AND Clave = ?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
@@ -40,12 +44,19 @@ function validarLogin($user, $pass) {
         die("Error al obtener resultado: " . $stmt->error);
     }
 
-    $existe = ($resultado->num_rows > 0);
+    // Obtenemos los resultados
+    if($resultado->num_rows > 0){
+        $fila = $resultado->fetch_assoc();
+        $nombre = $fila['nombre'];
+        $existe = true;
+    }
 
     // Cerrar
     $stmt->close();
     $conn->close();
 
+    // Devolvemos su existencia
     return $existe;
 }
+
 

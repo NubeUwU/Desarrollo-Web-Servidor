@@ -53,7 +53,9 @@ INSERT INTO `jugador` (`nombre`, `login`, `clave`, `puntos`, `extra`) VALUES
 ('Luisa', 'mluisaoa', '123', 0, 0),
 ('Olga', 'olga', '123', 130, 0),
 ('Victor Rubio', 'victorun', '123', 54, 0),
-('Yolanda Iglesias', 'yolandais', '123', 0, 0);
+('Yolanda Iglesias', 'yolandais', '123', 0, 0),
+('Jugador', 'jugador','123', 0, 0);
+
 
 -- --------------------------------------------------------
 

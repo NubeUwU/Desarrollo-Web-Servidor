@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "login.php"; 
 
 $mensaje = "";
@@ -8,12 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $user = $_POST["usuario"];
     $pass = $_POST["clave"];
+    $nombre = "";
 
     // Usamos la función de login.php
-    if (validarLogin($user, $pass)) {
+    if (validarLogin($user, $pass, $nombre)) {
+        session_start();
+        $_SESSION["usuario"] = $nombre;
 
-        $_SESSION["usuario"] = $user;
-
+        // Envia al login
         header("Location: inicio.php");
         exit();
 
