@@ -1,5 +1,22 @@
 <?php
-include 'login.php';
+
+
+// Funcion que conecta con la base de datos
+function conectarBD() {
+    $servername = "localhost";
+    $username = "jugador";
+    $password = "";
+    $dbname = "jerogrifico";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Error de conexión: " . $conn->connect_error);
+    }
+
+    return $conn;
+}
+
 
 // Función para mostrar los jugadores que han acertado el jeroglifico
 function aciertos() {

@@ -2,7 +2,7 @@
 
 function conectarBD() {
     $servername = "localhost";
-    $username = "root";
+    $username = "jugador";
     $password = "";
     $dbname = "jerogrifico";
 
@@ -31,13 +31,9 @@ function validarLogin($user, $pass, &$nombre) {
         die("Error al preparar la consulta: " . $conn->error);
     }
 
-    // Vincular parámetros
     $stmt->bind_param("ss", $user, $pass);
-
-    // Ejecutar
     $stmt->execute();
 
-    // Obtener resultado
     $resultado = $stmt->get_result();
 
     if (!$resultado) {

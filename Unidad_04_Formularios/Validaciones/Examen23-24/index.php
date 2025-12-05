@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (validarLogin($user, $pass, $nombre)) {
         session_start();
         $_SESSION["usuario"] = $nombre;
+        $_SESSION["login"] = $user;
 
         // Envia al login
         header("Location: inicio.php");

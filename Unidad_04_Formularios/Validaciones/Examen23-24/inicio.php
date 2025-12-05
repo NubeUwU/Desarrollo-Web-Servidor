@@ -1,6 +1,25 @@
 <?php
-include 'login.php';
 session_start();
+
+
+/* FUNCIONES */
+
+// Función para conectarse a la base de datos
+function conectarBD() {
+    $servername = "localhost";
+    $username = "jugador";
+    $password = "";
+    $dbname = "jerogrifico";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Error de conexión: " . $conn->connect_error);
+    }
+
+    return $conn;
+}
+
 
 // Función para insertar o actualizar la solución del jugador
 function insertSolucion($login, $solucion, $fecha, $hora) {
@@ -20,40 +39,39 @@ function insertSolucion($login, $solucion, $fecha, $hora) {
 }
 
 
-// Función para validar la solución y asignar puntos solo **una vez**
+
+// Función para validar la solución
 function validarSolucion($login, $solucion){
     $conn = conectarBD();
+    $fecha = '2024-02-16';
 
     // Obtenemos la solución correcta
-    $sql = "SELECT solucion FROM solucion WHERE fecha = '2024-02-16'";
-    $result = $conn->query($sql);
+    $sql = "SELECT solucion FROM solucion WHERE fecha = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $fecha);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $solucion_correcta = $row['solucion'];
 
-        // Comprobamos si ya tiene puntos hoy
-        $sql_check = "SELECT puntos FROM jugador WHERE login = ? AND puntos >= 0";
-        $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bind_param("s", $login);
-        $stmt_check->execute();
-        $res_check = $stmt_check->get_result();
-        $fila = $res_check->fetch_assoc();
-
+        // Si la respuesta es correcta, se llama a la funcion que suma 1 punto
         if($solucion === $solucion_correcta){
-            // Suma 1 punto solo si la respuesta aún no estaba correcta
             añadirPuntos($login, 1);
         }
     }
 
+    $stmt->close();
     $conn->close();
 }
+
 
 // Función para sumar puntos al jugador
 function añadirPuntos($login, $puntos) {
     $conn = conectarBD();
 
-    $sql = "UPDATE jugador SET puntos = puntos + ? WHERE login LIKE ?";
+    $sql = "UPDATE jugador SET puntos = puntos + ? WHERE login = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("is", $puntos, $login);
     $stmt->execute();
@@ -64,15 +82,19 @@ function añadirPuntos($login, $puntos) {
 
 
 
+/* RECARGA */
 
 // Procesamos el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviarSolucion"])) {
+
+    // Si no esta setteado el usuario, se devuelve al login
     if(!isset($_SESSION["usuario"])) {
         header("Location: index.php");
         exit();
     }
 
-    $login = $_SESSION["usuario"];
+    $login = $_SESSION["login"];
+    $usuario = $_SESSION["usuario"];
     $solucion = $_POST["solucion"];
     $fecha = '2024-02-16';
     $hora = date('H:i:s');
@@ -84,7 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviarSolucion"])) {
 
 
 
-<!-----HTML----->
+<!----- CARGA ----->
+
+<!----- HTML ----->
 
 <!DOCTYPE html>
 <html lang="en">

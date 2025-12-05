@@ -1,6 +1,23 @@
 <?PHP
-include 'login.php';
 
+// Funcion que conecta a la base de datos
+function conectarBD() {
+    $servername = "localhost";
+    $username = "jugador";
+    $password = "";
+    $dbname = "jerogrifico";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+        die("Error de conexión: " . $conn->connect_error);
+    }
+
+    return $conn;
+}
+
+
+/* Funcion que muestra las puntuaciones*/
 function puntuaciones() {
     $conn = conectarBD();
 
