@@ -26,54 +26,10 @@ function insertSolucion($login, $solucion, $fecha, $hora) {
     $conn = conectarBD();
 
     // Insertamos la respuesta, si ya existe actualizamos hora y respuesta
-    $sql = "INSERT INTO respuestas (fecha, login, hora, respuesta) 
-            VALUES (?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE hora = VALUES(hora), respuesta = VALUES(respuesta)";
+    $sql = "INSERT INTO respuestas (fecha, login, hora, respuesta) VALUES (?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssss", $fecha, $login, $hora, $solucion);
-    $stmt->execute();
-
-    $stmt->close();
-    $conn->close();
-}
-
-
-
-// Función para validar la solución
-function validarSolucion($login, $solucion){
-    $conn = conectarBD();
-    $fecha = '2024-02-16';
-
-    // Obtenemos la solución correcta
-    $sql = "SELECT solucion FROM solucion WHERE fecha = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $fecha);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $solucion_correcta = $row['solucion'];
-
-        // Si la respuesta es correcta, se llama a la funcion que suma 1 punto
-        if($solucion === $solucion_correcta){
-            añadirPuntos($login, 1);
-        }
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-
-
-// Función para sumar puntos al jugador
-function añadirPuntos($login, $puntos) {
-    $conn = conectarBD();
-
-    $sql = "UPDATE jugador SET puntos = puntos + ? WHERE login = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("is", $puntos, $login);
     $stmt->execute();
 
     $stmt->close();
@@ -100,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviarSolucion"])) {
     $hora = date('H:i:s');
 
     insertSolucion($login, $solucion, $fecha, $hora);
-    validarSolucion($login, $solucion);
 }
 ?>
 

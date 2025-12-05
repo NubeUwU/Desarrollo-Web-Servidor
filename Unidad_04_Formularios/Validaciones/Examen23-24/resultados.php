@@ -22,10 +22,12 @@ function conectarBD() {
 function aciertos() {
     $conn = conectarBD();
 
+    $fecha = "2024-02-16";
+
     $sql = "SELECT r.login, r.hora 
             FROM respuestas r 
             JOIN solucion s ON r.fecha = s.fecha
-            WHERE r.fecha = '2024-02-16'
+            WHERE r.fecha = '$fecha'
             AND r.respuesta = s.solucion
             ORDER BY r.hora ASC";
             
@@ -33,6 +35,7 @@ function aciertos() {
 
     if ($resultado->num_rows > 0) {
         while($fila = $resultado->fetch_assoc()) {
+
             echo "<tr>
             <!-- Mostrar datos del login -->
                         <td style='border: 3px double black; padding: 5px;'>" . htmlspecialchars($fila["login"]) . "</td>
@@ -46,23 +49,41 @@ function aciertos() {
     $conn->close();
 }
 
+
+// Función para sumar puntos al jugador
+function añadirPuntos() {
+    $conn = conectarBD();
+    $fecha = "2024-02-16";
+
+    $sql = "UPDATE jugador SET puntos = puntos + 1 WHERE login IN
+            (SELECT r.login FROM respuestas r JOIN solucion s ON r.fecha = s.fecha 
+            WHERE r.respuesta = s.solucion AND r.fecha = '$fecha')";
+
+    $conn->query($sql);
+    $conn->close();
+}
+
+
 // Función para contar los aciertos
 function contarAciertos() {
     $conn = conectarBD();
+    $fecha = "2024-02-16";
 
     $sql = "SELECT COUNT(*) AS total
             FROM respuestas r
             JOIN solucion s ON r.fecha = s.fecha
-            WHERE r.fecha = '2024-02-16'
+            WHERE r.fecha = '$fecha'
             AND r.respuesta = s.solucion";
 
     $resultado = $conn->query($sql);
     $fila = $resultado->fetch_assoc();
 
     $conn->close();
+
+    // Se llama a la función que añade los puntos
+    añadirPuntos();
     return $fila["total"];
 }
-
 
 
 

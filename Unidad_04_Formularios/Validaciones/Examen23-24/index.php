@@ -1,7 +1,12 @@
 <?php
 include "login.php"; 
 
+// Se inicia un mensaje en blanco
 $mensaje = "";
+
+
+
+/* RECARGA */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -23,8 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mensaje = "Usuario o contraseña incorrectos.";
     }
 }
-
 ?>
+
+
+<!----- HTML ----->
 
 <!DOCTYPE html>
 <html lang="es">
