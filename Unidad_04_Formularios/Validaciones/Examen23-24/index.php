@@ -5,7 +5,6 @@ include "login.php";
 $mensaje = "";
 
 
-
 /* RECARGA */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -28,18 +28,18 @@ function puntuaciones() {
         while($fila = $resultado->fetch_assoc()) {
             echo "<tr>
             
-                        <!-- Datos del login -->
-                        <td style='border: 3px double black; padding: 5px;'>" . htmlspecialchars($fila["login"]) . "</td>
+                <!-- Datos del login -->
+                <td style='border: 3px double black; padding: 5px;'>" . htmlspecialchars($fila["login"]) . "</td>
 
 
-                        <!-- Datos de los puntos -->
-                        <td style='border: 3px double black; padding: 5px;'>" . htmlspecialchars($fila["puntos"]) . "</td>
+                <!-- Datos de los puntos -->
+                <td style='border: 3px double black; padding: 5px;'>" . htmlspecialchars($fila["puntos"]) . "</td>
 
 
-                        <!-- Gráfico de barras -->
-                        <td style='border: 3px double black; padding: 5px;'>
+                <!-- Gráfico de barras -->
+                <td style='border: 3px double black; padding: 5px;'>
                             <div style='background-color:#90D5FF; height:20px; width:" . ($fila["puntos"] * 2.5) . "px;'></div>
-                    </tr>";
+            </tr>";
         }
     }
     $conn->close();
